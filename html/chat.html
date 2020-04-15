@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chat Room</title>
+    </head>
+    <body>
+        <p>This is the chatroom for </p>
+	<p id="user"></p>
+        <div class="container">
+            <div class="list">
+
+            </div>
+	    <form id = "msgForm">
+            <div class="conversation">
+
+<!-- TO-DO: hide before chat selected -->
+		<input type="text" placeholder="Enter Message" id="message">
+	    </div>
+		<input id ="MsgFormSubmit" type="button" onclick="submitForm()" value="Chat"/>
+
+    </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+//trying to get own username
+$(document).ready(function(){
+	$.get("listOfUsers", function(result){
+	var arr = result.split("%%%");
+	var userName = arr[-1]
+	document.getElementById("user").innerHTML = userName;
+});
+});
+//updating list of active users every 0.1 seconds
+setTimeout(function(){
+	$.getJSON("listOfUsers", function(result){
+	  $.each(result, function(i,username){
+		if(username != userName){
+			document.write(username);
+		}
+	});
+	
+	});
+		
+	
+	},100);
+	function submitForm() {
+	$.ajax({
+		type: 'POST',
+		datatype: 'text',
+		data : $("#msgForm").serializeArray()
+	});
+	}
+    </script>
+    
+
+</html>

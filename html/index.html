@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>Chat Room</title>
+    </head>
+    <body>
+        <p>This is the entry to the chatroom.</p>
+        <form id="registrationForm">
+		<div class="regist">
+            <label>Username:</label>
+            <input type="text" name="username" required>
+		</div>
+            <input id ="registrationFormSubmit" type="button" onclick="submitForm()" value="Sign in"/>
+        </form>
+    </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+
+	function submitForm() {
+	$.ajax({
+		type: 'POST',
+		datatype: 'text',
+		data : $("#registrationForm").serializeArray(),
+		success: function (){
+		window.location.href="/chat.html";},
+
+	});
+	}
+</script>
+
+</html>
